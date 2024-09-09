@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>String Incrementer</title>
+</head>
+<body>
+    <input type="text" id="inputString" placeholder="Enter a string (e.g., jhgler01.jpg)">
+    <button onclick="generateStrings()">Generate</button>
+    <div id="output"></div>
+
+    <script>
+        function generateStrings() {
+            const inputString = document.getElementById('inputString').value;
+            const outputDiv = document.getElementById('output');
+            outputDiv.innerHTML = '';
+            if (inputString.trim() === '') {
+                alert('Please enter a string.');
+                return;
+            }
+            const regex = /(\d+)/;
+            const match = inputString.match(regex);
+            if (!match) {
+                alert('The input string must contain a number.');
+                return;
+            }
+            const baseString = inputString.substring(0, match.index);
+            const numberPartLength = match[0].length;
+
+            for (let i = 1; i <= 35; i++) {
+                const formattedNumber = String(i).padStart(numberPartLength, '0');
+                const newString = baseString + formattedNumber + inputString.substring(match.index + numberPartLength);
+                const para = document.createElement('p');
+                para.textContent = newString;
+                outputDiv.appendChild(para);
+            }
+        }
+    </script>
+</body>
+</html>
